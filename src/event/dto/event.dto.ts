@@ -1,4 +1,11 @@
-import { IsEnum, IsNumber, IsOptional, IsString, Min } from 'class-validator';
+import {
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  IsPositive,
+  IsString,
+  Min,
+} from 'class-validator';
 
 export enum EventType {
   DEPOSIT = 'deposit',
@@ -19,6 +26,6 @@ export class GenericEventDto {
   origin?: string;
 
   @IsNumber()
-  @Min(0)
+  @IsPositive()
   amount: number;
 }
