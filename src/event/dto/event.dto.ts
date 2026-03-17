@@ -1,3 +1,6 @@
+import { Type } from 'class-transformer';
+import { IsEnum, IsNumber, IsOptional, IsString, Min } from 'class-validator';
+
 export enum EventType {
   DEPOSIT = 'deposit',
   WITHDRAW = 'withdraw',
@@ -5,8 +8,19 @@ export enum EventType {
 }
 
 export class GenericEventDto {
+  @IsEnum(EventType)
   type: EventType;
+
+  @IsOptional()
+  @IsString()
   destination?: string;
-  amount: number;
+
+  @IsOptional()
+  @IsString()
   origin?: string;
+
+  @Type(() => Number)
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @Min(0.01)
+  amount: number;
 }
