@@ -1,4 +1,4 @@
 export class AccountDto {
-  id: number;
+  id: string;
   balance: number;
 }

@@ -12,16 +12,17 @@ describe('AccountService', () => {
     service = module.get<AccountService>(AccountService);
   });
 
-  it('should return existing account balance', () => {
-    expect(service.getBalance(100)).toEqual({ balance: 0 });
+  it('should throw when account is not found', () => {
+    expect(() => service.getBalance('100')).toThrow('account not found');
   });
 
   it('should deposit and update balance', () => {
-    service.deposit(100, 50);
-    expect(service.getBalance(100)).toEqual({ balance: 50 });
+    service.deposit('100', 50);
+    expect(service.getBalance('100')).toEqual({ balance: 50 });
   });
 
   it('should throw when withdrawing more than balance', () => {
-    expect(() => service.withdraw(100, 10)).toThrow('insufficient balance');
+    service.deposit('100', 50);
+    expect(() => service.withdraw('100', 60)).toThrow('insufficient balance');
   });
 });

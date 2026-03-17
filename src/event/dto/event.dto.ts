@@ -6,7 +6,7 @@ export enum EventType {
 
 export class GenericEventDto {
   type: EventType;
-  destination?: number;
+  destination?: string;
   amount: number;
-  origin?: number;
+  origin?: string;
 }
