@@ -18,7 +18,7 @@ export class GenericEventDto {
   @IsString()
   origin?: string;
 
-  @IsNumber({ maxDecimalPlaces: 2 })
-  @Min(0.01)
+  @IsNumber()
+  @Min(0)
   amount: number;
 }
