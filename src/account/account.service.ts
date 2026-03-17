@@ -9,7 +9,7 @@ import { AccountDto } from './dto/account.dto';
 export class AccountService {
   private readonly accounts = new Map<number, AccountDto>([
     [100, { id: 100, balance: 0 }],
-    [200, { id: 200, balance: 100 }],
+    [200, { id: 200, balance: 0 }],
   ]);
 
   getBalance(id: number): { balance: number } {
