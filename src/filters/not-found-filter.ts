@@ -1,14 +1,21 @@
-import {
-  ArgumentsHost,
-  Catch,
-  ExceptionFilter,
-  NotFoundException,
-} from '@nestjs/common';
+import { ArgumentsHost, Catch, ExceptionFilter } from '@nestjs/common';
 import { Response } from 'express';
+import { AccountNotFoundError } from '../domain/errors/account-not-found';
+import { DomainBadRequestError } from '../domain/errors/domain-bad-request';
 
-@Catch(NotFoundException)
+@Catch(AccountNotFoundError, DomainBadRequestError)
 export class NotFoundFilter implements ExceptionFilter {
-  catch(_exception: NotFoundException, host: ArgumentsHost) {
-    host.switchToHttp().getResponse<Response>().status(404).send(0);
+  catch(
+    exception: AccountNotFoundError | DomainBadRequestError,
+    host: ArgumentsHost,
+  ) {
+    const response = host.switchToHttp().getResponse<Response>();
+
+    if (exception instanceof AccountNotFoundError) {
+      response.status(404).send(0);
+      return;
+    }
+
+    response.status(400).json({ message: exception.message });
   }
 }
