@@ -31,7 +31,7 @@ describe('Banking API (e2e)', () => {
   });
 
   it('POST /reset', async () => {
-    await request(app.getHttpServer()).post('/reset').expect(200);
+    await request(app.getHttpServer()).post('/reset').expect(200).expect('OK');
   });
 
   it('GET /balance — non-existing account returns 404 with body 0', async () => {
@@ -61,7 +61,7 @@ describe('Banking API (e2e)', () => {
     await request(app.getHttpServer())
       .get('/balance?account_id=100')
       .expect(200)
-      .expect({ balance: 20 });
+      .expect('20');
   });
 
   it('POST /event — withdraw from non-existing account returns 404 with body 0', async () => {

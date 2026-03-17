@@ -6,13 +6,14 @@ export class AccountController {
   constructor(private readonly accountService: AccountService) {}
 
   @Get('balance')
-  getBalance(@Query('account_id') id: string): { balance: number } {
-    return this.accountService.getBalance(id);
+  getBalance(@Query('account_id') id: string): number {
+    return this.accountService.getBalance(id).balance;
   }
 
   @Post('reset')
   @HttpCode(200)
-  reset(): void {
+  reset(): string {
     this.accountService.reset();
+    return 'OK';
   }
 }
