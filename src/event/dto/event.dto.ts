@@ -4,7 +4,6 @@ import {
   IsOptional,
   IsPositive,
   IsString,
-  Min,
 } from 'class-validator';
 
 export enum EventType {
@@ -13,7 +12,7 @@ export enum EventType {
   TRANSFER = 'transfer',
 }
 
-export class GenericEventDto {
+export class CreateEventDTO {
   @IsEnum(EventType)
   type: EventType;
 

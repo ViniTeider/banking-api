@@ -2,7 +2,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import request from 'supertest';
 import { AppModule } from './../src/app.module';
-import { NotFoundFilter } from '../src/filters/domain-exception-filter';
+import { DomainExceptionFilter } from '../src/filters/domain-exception-filter';
 import { App } from 'supertest/types';
 
 describe('Banking API (e2e)', () => {
@@ -14,7 +14,7 @@ describe('Banking API (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    app.useGlobalFilters(new NotFoundFilter());
+    app.useGlobalFilters(new DomainExceptionFilter());
     app.useGlobalPipes(
       new ValidationPipe({
         transform: true,

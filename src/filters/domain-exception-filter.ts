@@ -4,7 +4,7 @@ import { AccountNotFoundError } from '../domain/errors/account-not-found';
 import { DomainBadRequestError } from '../domain/errors/domain-bad-request';
 
 @Catch(AccountNotFoundError, DomainBadRequestError)
-export class NotFoundFilter implements ExceptionFilter {
+export class DomainExceptionFilter implements ExceptionFilter {
   catch(
     exception: AccountNotFoundError | DomainBadRequestError,
     host: ArgumentsHost,

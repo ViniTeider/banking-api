@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { AccountService } from '../account/account.service';
-import { EventType, GenericEventDto } from './dto/event.dto';
+import { EventType, CreateEventDTO } from './dto/event.dto';
 import { DomainBadRequestError } from '../domain/errors/domain-bad-request';
 
 @Injectable()
 export class EventService {
   constructor(private readonly accountService: AccountService) {}
 
-  processEvent(event: GenericEventDto) {
+  processEvent(event: CreateEventDTO) {
     switch (event.type) {
       case EventType.DEPOSIT:
         return this.handleDeposit(event);
@@ -20,7 +20,7 @@ export class EventService {
     }
   }
 
-  private handleDeposit(event: GenericEventDto) {
+  private handleDeposit(event: CreateEventDTO) {
     if (event.destination === undefined) {
       throw new DomainBadRequestError('destination is required for deposit');
     }
@@ -32,7 +32,7 @@ export class EventService {
     return { destination };
   }
 
-  private handleWithdraw(event: GenericEventDto) {
+  private handleWithdraw(event: CreateEventDTO) {
     if (event.origin === undefined) {
       throw new DomainBadRequestError('origin is required for withdraw');
     }
@@ -41,7 +41,7 @@ export class EventService {
     return { origin };
   }
 
-  private handleTransfer(event: GenericEventDto) {
+  private handleTransfer(event: CreateEventDTO) {
     if (event.origin === undefined || event.destination === undefined) {
       throw new DomainBadRequestError(
         'origin and destination are required for transfer',
